@@ -19,27 +19,33 @@ public class FirstJUnitTest {
     @Test
     void simpleTest() {
         sleep(2000);
-        $("#firstName").setValue("Hope");
-        $("#lastName").setValue("Hope");
-        $("#userEmail").setValue("test@test.test");
+        new PORegistration().setNameInput();
+        new PORegistration().setLastNameInput();
+        new PORegistration().setEmailInput();
         $("#genterWrapper").$(byText("Female")).click();
-        $("#userNumber").setValue("89999999999");
-        $("#dateOfBirthInput").click();
-        $x(("//select[@class=\"react-datepicker__month-select\"]")).selectOptionContainingText("April");
-        $x(("//select[@class=\"react-datepicker__year-select\"]")).selectOptionContainingText("1997");
-        $x(("//div[@class=\"react-datepicker__day react-datepicker__day--030\"]")).click();
+        new PORegistration().setPhoneInput();
+        new PORegistration().setBirthDate("30", "April", "1997");
         $("#subjectsInput").setValue("History").pressEnter();
         $("#hobbiesWrapper").$(byText("Music")).click();
         $("#uploadPicture").uploadFromClasspath("img/blog-toughness.jpg");
-        $("#currentAddress").setValue("Some_address");
+        new PORegistration().setAddressInput();
         $("#state").click();
         $("#stateCity-wrapper").$(byText("Uttar Pradesh")).click();
         $("#city").click();
         $("#stateCity-wrapper").$(byText("Agra")).click();
         $("#submit").click();
-
         $("#example-modal-sizes-title-lg").shouldBe(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(text("Hope Hope"), text("test@test.test"));
-
+        $(".table-responsive").shouldHave(
+                text("Hope Hope"),
+                text("test@test.test"),
+                text("Female"),
+                text("Mobile 8999999999"),
+                text("30 April,1997"),
+                text("History"),
+                text("Music"),
+                text("blog-toughness.jpg"),
+                text("Some_address"),
+                text("Uttar Pradesh"),
+                text("Agra"));
     }
 }
