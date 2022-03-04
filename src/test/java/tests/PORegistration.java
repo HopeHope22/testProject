@@ -2,37 +2,77 @@ package tests;
 
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 
 public class PORegistration {
     //locators
-    SelenideElement NameInput = $("#firstName");
-    SelenideElement LastNameInput = $("#lastName");
-    SelenideElement EmailInput = $("#userEmail");
-    SelenideElement PhoneInput = $("#userNumber");
-    SelenideElement AddressInput = $("#currentAddress");
+    public static SelenideElement nameInput = $("#firstName");
+    public static SelenideElement lastNameInput = $("#lastName");
+    public static SelenideElement emailInput = $("#userEmail");
+    public static SelenideElement phoneInput = $("#userNumber");
+    public static SelenideElement addressInput = $("#currentAddress");
+    public static SelenideElement dataPicker = $("#dateOfBirthInput");
+    public static SelenideElement yearDP = $(".react-datepicker__year-select");
+    public static SelenideElement monthDP = $(".react-datepicker__month-select");
+    public static SelenideElement blockStateCity = $("#stateCity-wrapper");
+    public static SelenideElement stateSelect = $("#state");
+    public static SelenideElement citySelect = $("#city");
+    public static SelenideElement buttonSubmit = $("#submit");
+    public static SelenideElement femaleGender = $("#genterWrapper").$(byText("Female"));
+    public static SelenideElement subjectsInput = $("#subjectsInput");
+    public static SelenideElement checkboxHobbyMusic = $("#hobbiesWrapper").$(byText("Music"));
+    public static SelenideElement addFileButton = $("#uploadPicture");
+    public static SelenideElement userCardTitle = $("#example-modal-sizes-title-lg");
+    public static SelenideElement userCard = $(".table-responsive");
+
+    // const
+    public static String name = "Hope";
+    public static String lastName = "Hope";
+    public static String email = "test@test.test";
+    public static String phone = "89999999999";
+    public static String address = "Some_Address";
+    public static String pathToImage = "img/blog-toughness.jpg";
 
     //actions
 
-    public void setNameInput() {
-        NameInput.setValue("Hope");
+    public PORegistration setInput(SelenideElement element, String value){
+        element.should(visible).setValue(value);
+        return this;
     }
 
-    public void setLastNameInput() {
-        LastNameInput.setValue("Hope");
+    public PORegistration clickButton(SelenideElement element){
+        element.should(visible).click();
+        return this;
     }
 
-    public void setEmailInput() {EmailInput.setValue("test@test.test");}
+    public PORegistration setSubject(String subject){
+        subjectsInput.setValue(subject).pressEnter();
+        return this;
+    }
 
-    public void setPhoneInput() {PhoneInput.setValue("89999999999");}
+    public PORegistration addFile(String path){
+        addFileButton.uploadFromClasspath(path);
+        return this;
+    }
 
-    public void setAddressInput() {AddressInput.setValue("Some_Address");}
 
-    public void setBirthDate(String day, String month, String year) {
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(month);
-        $(".react-datepicker__year-select").selectOption(year);
+    public PORegistration setBirthDate(String day, String month, String year) {
+        dataPicker.click();
+        monthDP.selectOption(month);
+        yearDP.selectOption(year);
         $("[aria-label$='" + month + " " + day + "th, " + year + "']").click();
+        return this;
     }
+
+    public PORegistration setLocation(String stateValue, String cityValue) {
+        stateSelect.click();
+        blockStateCity.$(byText(stateValue)).click();
+        citySelect.click();
+        blockStateCity .$(byText(cityValue)).click();
+        return this;
+    }
+
+
 }

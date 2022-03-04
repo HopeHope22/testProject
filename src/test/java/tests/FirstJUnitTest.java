@@ -5,10 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
+import static tests.PORegistration.*;
 
 public class FirstJUnitTest {
+
+    PORegistration poRegistration;
 
     @BeforeEach
     void openBrowser() {
@@ -18,24 +20,21 @@ public class FirstJUnitTest {
 
     @Test
     void simpleTest() {
-        sleep(2000);
-        new PORegistration().setNameInput();
-        new PORegistration().setLastNameInput();
-        new PORegistration().setEmailInput();
-        $("#genterWrapper").$(byText("Female")).click();
-        new PORegistration().setPhoneInput();
-        new PORegistration().setBirthDate("30", "April", "1997");
-        $("#subjectsInput").setValue("History").pressEnter();
-        $("#hobbiesWrapper").$(byText("Music")).click();
-        $("#uploadPicture").uploadFromClasspath("img/blog-toughness.jpg");
-        new PORegistration().setAddressInput();
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("Uttar Pradesh")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Agra")).click();
-        $("#submit").click();
-        $("#example-modal-sizes-title-lg").shouldBe(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(
+        poRegistration = new PORegistration();
+        poRegistration.setInput(nameInput, name)
+                .setInput(lastNameInput, lastName)
+                .setInput(emailInput, email)
+                .setInput(phoneInput, phone)
+                .setInput(addressInput, address)
+                .clickButton(femaleGender)
+                .setBirthDate("30", "April", "1997")
+                .setSubject("History")
+                .clickButton(checkboxHobbyMusic)
+                .addFile(pathToImage)
+                .setLocation("Uttar Pradesh", "Agra")
+                .clickButton(buttonSubmit);
+        userCardTitle.shouldBe(text("Thanks for submitting the form"));
+        userCard.shouldHave(
                 text("Hope Hope"),
                 text("test@test.test"),
                 text("Female"),
