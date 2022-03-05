@@ -3,10 +3,11 @@ package tests;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pages.PORegistration;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
-import static tests.PORegistration.*;
+import static pages.PORegistration.*;
 
 public class FirstJUnitTest {
 

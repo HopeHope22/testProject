@@ -1,12 +1,16 @@
-package tests;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import pages.components.CalendarComponent;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class PORegistration {
+
+    CalendarComponent calendarComponent = new CalendarComponent();
+
     //locators
     public static SelenideElement nameInput = $("#firstName");
     public static SelenideElement lastNameInput = $("#lastName");
@@ -14,8 +18,6 @@ public class PORegistration {
     public static SelenideElement phoneInput = $("#userNumber");
     public static SelenideElement addressInput = $("#currentAddress");
     public static SelenideElement dataPicker = $("#dateOfBirthInput");
-    public static SelenideElement yearDP = $(".react-datepicker__year-select");
-    public static SelenideElement monthDP = $(".react-datepicker__month-select");
     public static SelenideElement blockStateCity = $("#stateCity-wrapper");
     public static SelenideElement stateSelect = $("#state");
     public static SelenideElement citySelect = $("#city");
@@ -60,9 +62,7 @@ public class PORegistration {
 
     public PORegistration setBirthDate(String day, String month, String year) {
         dataPicker.click();
-        monthDP.selectOption(month);
-        yearDP.selectOption(year);
-        $("[aria-label$='" + month + " " + day + "th, " + year + "']").click();
+        calendarComponent.setDatePicker(day, month, year);
         return this;
     }
 
