@@ -3,7 +3,6 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -12,40 +11,70 @@ public class PORegistration {
     CalendarComponent calendarComponent = new CalendarComponent();
 
     //locators
-    public static SelenideElement nameInput = $("#firstName");
-    public static SelenideElement lastNameInput = $("#lastName");
-    public static SelenideElement emailInput = $("#userEmail");
-    public static SelenideElement phoneInput = $("#userNumber");
-    public static SelenideElement addressInput = $("#currentAddress");
-    public static SelenideElement dataPicker = $("#dateOfBirthInput");
-    public static SelenideElement blockStateCity = $("#stateCity-wrapper");
-    public static SelenideElement stateSelect = $("#state");
-    public static SelenideElement citySelect = $("#city");
-    public static SelenideElement buttonSubmit = $("#submit");
-    public static SelenideElement femaleGender = $("#genterWrapper").$(byText("Female"));
-    public static SelenideElement subjectsInput = $("#subjectsInput");
-    public static SelenideElement checkboxHobbyMusic = $("#hobbiesWrapper").$(byText("Music"));
-    public static SelenideElement addFileButton = $("#uploadPicture");
+    private SelenideElement nameInput = $("#firstName");
+    private SelenideElement lastNameInput = $("#lastName");
+    private SelenideElement emailInput = $("#userEmail");
+    private SelenideElement phoneInput = $("#userNumber");
+    private SelenideElement addressInput = $("#currentAddress");
+    private SelenideElement dataPicker = $("#dateOfBirthInput");
+    private SelenideElement blockStateCity = $("#stateCity-wrapper");
+    private SelenideElement stateSelect = $("#state");
+    private SelenideElement citySelect = $("#city");
+    private SelenideElement buttonSubmit = $("#submit");
+    private SelenideElement femaleGender = $("#genterWrapper").$(byText("Female"));
+    private SelenideElement subjectsInput = $("#subjectsInput");
+    private SelenideElement checkboxHobbyMusic = $("#hobbiesWrapper").$(byText("Music"));
+    private SelenideElement addFileButton = $("#uploadPicture");
     public static SelenideElement userCardTitle = $("#example-modal-sizes-title-lg");
     public static SelenideElement userCard = $(".table-responsive");
 
     // const
-    public static String name = "Hope";
-    public static String lastName = "Hope";
-    public static String email = "test@test.test";
-    public static String phone = "89999999999";
-    public static String address = "Some_Address";
-    public static String pathToImage = "img/blog-toughness.jpg";
+    private String name = "Hope";
+    private String lastName = "Hope";
+    private String email = "test@test.test";
+    private String phone = "89999999999";
+    private String address = "Some_Address";
+    private String pathToImage = "img/blog-toughness.jpg";
 
     //actions
 
-    public PORegistration setInput(SelenideElement element, String value){
-        element.should(visible).setValue(value);
+    public PORegistration setName(){
+        nameInput.setValue(name);
         return this;
     }
 
-    public PORegistration clickButton(SelenideElement element){
-        element.should(visible).click();
+    public PORegistration setLastName(){
+        lastNameInput.setValue(lastName);
+        return this;
+    }
+
+    public PORegistration setEmail(){
+        emailInput.setValue(email);
+        return this;
+    }
+
+    public PORegistration setAddress(){
+        addressInput.setValue(address);
+        return this;
+    }
+
+    public PORegistration setPhone(){
+        phoneInput.setValue(phone);
+        return this;
+    }
+
+    public PORegistration clickButton(){
+        buttonSubmit.click();
+        return this;
+    }
+
+    public PORegistration clickGenderRadiobutton(){
+        femaleGender.click();
+        return this;
+    }
+
+    public PORegistration clickCheckboxHobby(){
+        checkboxHobbyMusic.click();
         return this;
     }
 
@@ -54,11 +83,10 @@ public class PORegistration {
         return this;
     }
 
-    public PORegistration addFile(String path){
-        addFileButton.uploadFromClasspath(path);
+    public PORegistration addFile(){
+        addFileButton.uploadFromClasspath(pathToImage);
         return this;
     }
-
 
     public PORegistration setBirthDate(String day, String month, String year) {
         dataPicker.click();

@@ -7,11 +7,12 @@ import pages.PORegistration;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
-import static pages.PORegistration.*;
+import static pages.PORegistration.userCard;
+import static pages.PORegistration.userCardTitle;
 
 public class FirstJUnitTest {
 
-    PORegistration poRegistration;
+    PORegistration poRegistration = new PORegistration();
 
     @BeforeEach
     void openBrowser() {
@@ -21,19 +22,19 @@ public class FirstJUnitTest {
 
     @Test
     void simpleTest() {
-        poRegistration = new PORegistration();
-        poRegistration.setInput(nameInput, name)
-                .setInput(lastNameInput, lastName)
-                .setInput(emailInput, email)
-                .setInput(phoneInput, phone)
-                .setInput(addressInput, address)
-                .clickButton(femaleGender)
+        poRegistration
+                .setName()
+                .setLastName()
+                .setEmail()
+                .setPhone()
+                .setAddress()
+                .clickGenderRadiobutton()
                 .setBirthDate("30", "April", "1997")
                 .setSubject("History")
-                .clickButton(checkboxHobbyMusic)
-                .addFile(pathToImage)
+                .clickCheckboxHobby()
+                .addFile()
                 .setLocation("Uttar Pradesh", "Agra")
-                .clickButton(buttonSubmit);
+                .clickButton();
         userCardTitle.shouldBe(text("Thanks for submitting the form"));
         userCard.shouldHave(
                 text("Hope Hope"),
