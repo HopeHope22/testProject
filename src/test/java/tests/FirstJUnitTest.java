@@ -1,6 +1,6 @@
 package tests;
 
-import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.PORegistration;
@@ -16,8 +16,8 @@ public class FirstJUnitTest {
 
     @BeforeEach
     void openBrowser() {
+        Configuration.browserSize = "1920x1080";
         open("https://demoqa.com/automation-practice-form");
-        WebDriverRunner.getWebDriver().manage().window().maximize();
     }
 
     @Test
